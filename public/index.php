@@ -26,5 +26,3 @@ use App\Router;
 
     //Résoudre ma route correspondant
     $router -> resolve();
-    echo"<pre>";
-    var_dump($router);
