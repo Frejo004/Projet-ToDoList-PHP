@@ -4,13 +4,17 @@
 <h1>Ma Todo List</h1>
 <a href="/add">Ajouter une nouvelle tâche</a>
 <ul>
+    <?php foreach($todos as $todo):?>
     <li>
-        <span>Apprendre HTML</span>
-        <a href="">✅</a>
-        <a href="">❌</a>
+        <span style="text-decoration: <?= $todo['done'] ? 'line-through' : 'none' ?>">
+            <?= htmlspecialchars($todo['task']) ?>
+        </span>
+        <a href="/toggle?id=<?= $todo['id'] ?>" >✅</a>
+        <a href="/delete?id=<?= $todo['id'] ?>">❌</a>
     </li>
+    <?php endforeach ?>
 </ul>
 
-<?php $container = ob_get_clean() ?>
+<?php $content = ob_get_clean() ?>
 
 <?php include 'layout.php' ?>
