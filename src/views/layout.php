@@ -1,7 +1,3 @@
-<?php 
-    echo "hello world 🚀"
-?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>

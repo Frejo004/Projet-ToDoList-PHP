@@ -61,7 +61,7 @@
          */
         public function resolve(){
             //Récupérer l'URL depuis la requête
-            $requestURL = parse_url($_REQUEST['REQUEST_URL'], PHP_URL_PATH);
+            $requestURL = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
             //Récupérer la méthode HTTP utilisée pour la requête
             $requestMethode = $_SERVER['REQUEST_METHOD'];
 
