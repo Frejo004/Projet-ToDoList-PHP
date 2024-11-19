@@ -6,7 +6,7 @@ use App\Router;
     require __DIR__ . "/../vendor/autoload.php";
 
     //Démarrer la session
-    if(isset($_SESSION)){
+    if(!isset($_SESSION)){
         session_start();
     }
 
