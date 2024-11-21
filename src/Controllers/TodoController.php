@@ -9,7 +9,6 @@
             }
 
             $todos = $_SESSION["todos"] ?? [];//si $todos est NULL, on prend le tableau vide
-
             // echo "<pre>";
             // echo session_save_path();
             //  print_r($todos);
@@ -60,5 +59,25 @@
             }
             header('Location: /');
             exit;
+        }
+
+        public function update(){
+            $id = $_GET['id'] ?? null;
+            $task = $_GET['task'] ?? null;
+
+
+            if($_SERVER['REQUEST_METHOD'] === 'POST'){
+                $task = trim($_POST['task']);
+                if($id){
+                    foreach($_SESSION['todos'] as &$todo){
+                        $todo['done'] = !$todo['done'];
+                    }
+                }
+                var_dump($id);
+                header('Location: /');
+                exit ;
+            }
+            //charger la vue update.php
+            require dirname(__DIR__) . "/Views/update.php";
         }
     }
