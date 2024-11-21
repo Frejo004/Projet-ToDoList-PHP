@@ -20,6 +20,8 @@ use App\Router;
     $router -> get ("/", [$todoController, 'index' ]);
     $router -> get ("/add", [$todoController, 'add' ]);
     $router -> post ("/add", [$todoController, 'add' ]);
+    $router -> get ("/update", [$todoController, 'update' ]);
+    $router -> post ("/update", [$todoController, 'update' ]);
     $router -> get ("/toggle", [$todoController, 'toggle' ]);
     $router -> get ("/delete", [$todoController, 'delete' ]);
 
