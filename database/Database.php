@@ -6,14 +6,13 @@
 
     class Database{
         //Design Pattern; Singleton
-        public PDO $instanceDb;
+        public static ?PDO $instanceDb = null;
         //Les configurations de la base de données
         private const BD_HOST  = "localhost";
         private const BD_NAME  = "todos_db";
         private const BD_USER  = "root";
         private const BD_PASSWORD  = "";
         
-        private string $dns ="mysql:host". self ::BD_HOST . "dbname" . "charset=utf8mb4";
 
         /**
          * Empêche l'intancition de la class
@@ -22,15 +21,15 @@
 
         private function __clone() {}
 
-        public function getIntance(){
+        public static function getInstance(){
             //si l'intance st null on la crée
             if(self :: $instanceDb === null){
                 try {
-                    self :: $instanceDb = new PDO(
-                        "mysql:host". self ::BD_HOST . "dbname" . "charset=utf8mb4",
+                    self::$instanceDb = new PDO(
+                        "mysql:host=". self::BD_HOST . ";dbname=" .self::BD_NAME. ";charset=utf8mb4",
                     self::BD_USER, 
                     self::BD_PASSWORD);
-                    [PDO :: ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,//lever des exeptions quand il y a des erreurs
+                    [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,//lever des exeptions quand il y a des erreurs
                         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, //renvoyer le données sous formes de tableau associatif
                     ];
                 } 
