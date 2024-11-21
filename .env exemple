@@ -1,4 +1,4 @@
-BD_HOST=votre_hots
+BD_HOST=votre_host
 BD_NAME=votre_db_name
 BD_USER=votre_user
 BD_PASSWORD=votre_password
