@@ -10,7 +10,7 @@
 
 
             //Récupérer les tâches deouis la BDD
-            $query = $db -> query("SELECT * FREOM todos");//preépre la requête
+            $query = $db -> query("SELECT * FROM todos");//preépre la requête
             $todos = $query -> fetchAll(); //retourner le résultat de l'exécution de la requête
 
             // //Récupérer les tâches depuis la session
@@ -30,18 +30,17 @@
                 $task = trim($_POST['task']);
 
                 if($task) {
-                    //Récupérer l'instance de connexion à la BD
-                    $db = Database::getInstance();
-
-                    //Prépare ka requête SQL pour insérer une nouvelle tâche dans la table "todos"
-                    //Les placehoders ':task' et ':done' sont utilisés pour éviter les injections SQL
-                    //Cela sécurise les données entrés par l'utilisateur
-                    $stmt = $db -> prepare("INSERT INTO todos (tas, done) VALUES ($task, false)"); //prépapre la requête
-
-                    //Exécuter la requête préparée avec les valeurs spécifiques fournies dans un tableau associatif
-                    // - ':task' contient la description de la tâche saissie par l'utilisateur
-                    // - ':done' est initiliasé
-                    $stmt -> execute([":task" => $task, ":done" => 0]);//exécute la requête
+                //Récupérer l'instance de connexion à la BDD
+                $db = Database::getInstance();
+                //Prépare la requête SQL pour insérer un nouvelle tâche dans la table "todos".
+                //Les placeholders `:task` et `done` sont utilisés pour éviter les iinjections SQL.
+                //Cela sécurise les données entrés par l'utilisateur
+                $stmt = $db->prepare("INSERT INTO todos(task,done) VALUES(:task, :done); ");//prépare la requête
+                //Exécute la requête préparée avec les valeurs spécifiques fournies dans un tableau associatif
+                // - `:task` contient la description de la tâche saisie par l'user
+                // - `:done` est initialisé à 0 (indiquand que la tâche n'est pas encore)
+                $stmt->execute([":task" => $task, ":done" => 0]);
+                //exécution de la requête
 
                     // $_SESSION['todos'][] = [
                     //     'id' => uniqid('todo_'),
@@ -97,21 +96,21 @@
 
         public function update(){
             $id = $_GET['id'] ?? null;
-            $task = $_GET['task'] ?? null;
-
-
+            $task = $_POST['task'] ?? null;
+            
+            
             if($_SERVER['REQUEST_METHOD'] === 'POST'){
-                $task = trim($_POST['task']);
                 if($id){
-                    foreach($_SESSION['todos'] as &$todo){
-                        $todo['done'] = !$todo['done'];
-                    }
+
+                    $db = Database::getInstance();
+    
+                    $stmt = $db -> prepare("UPDATE todos SET task = :task WHERE id = :id;");
+                    $stmt -> execute ([":task" => $task,":id"=> $id]);
                 }
-                var_dump($id);
                 header('Location: /');
                 exit ;
             }
-            //charger la vue update.php
-            require dirname(__DIR__) . "/Views/update.php";
-        }
+                //charger la vue update.php
+                require dirname(__DIR__) . "/Views/update.php";
+            }
     }
