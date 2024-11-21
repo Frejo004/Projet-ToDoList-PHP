@@ -14,5 +14,8 @@
             "email": "frejohope@gmail.com"
         }
     ],
-    "require": {}
+    "require": {},
+    "scripts": {
+        "star": "php -S localhost:9000 -t public"
+    }
 }
