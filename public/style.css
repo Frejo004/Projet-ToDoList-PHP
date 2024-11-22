@@ -6,7 +6,7 @@ body {
 }
 
 .container {
-    max-width: 600px;
+    max-width: 700px;
     margin: 50px auto;
     background: #fff;
     padding: 30px;
@@ -30,13 +30,14 @@ a:hover {
 
 ul {
     list-style: none;
+    display: grid;
     padding: 0;
 }
 
 li {
     padding: 10px;
     border-bottom: 1px solid #ddd;
-    display: flex;
+    /* display: flex; */
     justify-content: space-between;
     align-items: center;
 }
@@ -44,7 +45,16 @@ li {
 li:last-child {
     border-bottom: none;
 }
-
+.content{
+    display: flex;
+    column-gap: 30px;
+    grid-column-start: 1fr;
+    margin-top: 5px;
+    margin-bottom: 25px;
+}
+.content1{
+    grid-column-start: 1fr;
+}
 button {
     padding: 5px 10px;
     border: none;

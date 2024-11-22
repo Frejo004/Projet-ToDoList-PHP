@@ -1,7 +1,7 @@
 <?php
     namespace App\Controllers;
 
-    class Controller{
+     abstract class Controller{
 
         /**
          * Méthode pour charger la vue

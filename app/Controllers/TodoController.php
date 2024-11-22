@@ -41,8 +41,7 @@
                     //     'done' => false,
                     // ];
                 }
-                header('Location: /');
-                exit;
+                $this -> redirect ("/");
             }
             //charger la vue add.php
             $this -> view("add");
@@ -58,6 +57,7 @@
                 // $_SESSION['todos'] = array_filter($_SESSION['todos'], function($todo) use ($id){
                 //     return $todo['id'] !== $id;
                 // });
+                $this -> redirect ("/");
             }
 
             $this -> view("delete");
@@ -73,6 +73,7 @@
                 //     if($todo['id'] === $id){
                 //         $todo['done'] = !$todo['done'];
                 //     }
+                $this -> redirect ("/");
                 }
                 $this -> view("toggle");
             }
@@ -80,16 +81,14 @@
 
         public function update(){
             $id = $_GET['id'] ?? null;
-            $task = $_POST['task'] ?? null;
             
             
             if($_SERVER['REQUEST_METHOD'] === 'POST'){
+                $task = $_POST['task'];
+                echo "$id";
+                
                 if($id){
-
-                    $db = Database::getInstance();
-    
-                    $stmt = $db -> prepare("UPDATE todos SET task = :task WHERE id = :id;");
-                    $stmt -> execute ([":task" => $task,":id"=> $id]);
+                    $this -> todoModels -> update($id, $task);
                 }
                 $this -> redirect ("/");
             }
