@@ -6,7 +6,7 @@
     use DB\Database;
 
 
-    class TodoController{
+    class TodoController extends Controller{
 
         private $todoModels;
 
@@ -15,7 +15,7 @@
         }
 
         public function index(){
-            $todo =  $this -> todoModels -> getALL();
+            $todos =  $this -> todoModels -> getALL();
             // //Récupérer les tâches depuis la session
             // if(!isset($_SESSION)){
             //     session_start();
@@ -45,7 +45,7 @@
                 exit;
             }
             //charger la vue add.php
-            require dirname(__DIR__) . "/Views/add.php";
+            $this -> view("add");
         }
 
 
@@ -60,8 +60,7 @@
                 // });
             }
 
-            header('Location: /');
-            exit;
+            $this -> view("delete");
         }
 
         public function toggle(){
@@ -75,8 +74,7 @@
                 //         $todo['done'] = !$todo['done'];
                 //     }
                 }
-                header('Location: /');
-                exit;
+                $this -> view("toggle");
             }
 
 
@@ -93,10 +91,9 @@
                     $stmt = $db -> prepare("UPDATE todos SET task = :task WHERE id = :id;");
                     $stmt -> execute ([":task" => $task,":id"=> $id]);
                 }
-                header('Location: /');
-                exit ;
+                $this -> redirect ("/");
             }
                 //charger la vue update.php
-                require dirname(__DIR__) . "/Views/update.php";
+                $this -> view("update");
             }
     }
